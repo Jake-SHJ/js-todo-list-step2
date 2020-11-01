@@ -5,10 +5,11 @@
 // const userCreateButton = document.querySelector('.user-create-button')
 // userCreateButton.addEventListener('click', onUserCreateHandler)
 import UserTitle from "./User/UserTitle.js";
-import UserList from "./User/UserList.js";
+import { UserList, RenderUserList } from "./User/UserList.js";
 import TodoAppContainer from "./Todo/TodoAppContainer.js";
 import CountContainer from "./Count/CountContainer.js";
 import { DOMelement } from "./util/util.js";
+import { ApiController } from "./api/api.js";
 
 const App = document.getElementById("app");
 
@@ -26,4 +27,8 @@ if (App) {
   );
 }
 
-console.log(App);
+const store = {};
+
+new ApiController()
+  .sendApi("/api/users")
+  .then((res) => RenderUserList((store.user = res)));
