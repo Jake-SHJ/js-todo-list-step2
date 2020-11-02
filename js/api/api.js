@@ -5,7 +5,11 @@ export class ApiController {
   }
 
   async sendApi(url, method = "get", requestBody) {
-    const response = await fetch(this.baseUrl + url, { method, requestBody });
+    const response = await fetch(this.baseUrl + url, {
+      method,
+      body: JSON.stringify(requestBody),
+      headers: this.headers,
+    });
     const result = await response.json();
     return result;
   }
